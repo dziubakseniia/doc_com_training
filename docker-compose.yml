@@ -1,0 +1,54 @@
+version: "3.5"
+
+services:
+  server:
+    build: server/
+    ports:
+      - 8004:8004
+    networks: 
+      - server
+    container_name: "server"
+    depends_on: 
+      - postgresdb
+    links: 
+      - postgresdb
+
+  client:
+    build: client/
+    ports:
+      - 8005:8005
+    networks: 
+      - server
+      - client
+    container_name: "client"
+    depends_on: 
+      - server
+    links: 
+      - server
+    
+  # postgresdb:
+  #   build: postgresdb/
+  #   ports: 
+  #     - 5433:5433
+  #   container_name: "postgresdb"
+  postgresdb:
+    image: postgres:12.1
+    restart: always
+    environment: 
+      POSTGRES_USER: docker
+      POSTGRES_PASSWORD: docker
+    container_name: "postgresdb"
+
+  mongo:
+    image: mongo:4.2.2
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example  
+
+networks: 
+    server:
+        driver: "bridge"
+        internal: true
+    client:
+        driver: "bridge"
