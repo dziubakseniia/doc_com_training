@@ -1,7 +1,8 @@
-from sanic.views import HTTPMethodView
 from sanic.response import text
+from sanic.views import HTTPMethodView
 
 from src.controllers.author_controller import AuthorController
+
 
 class AuthorView(HTTPMethodView):
     def __init__(self):

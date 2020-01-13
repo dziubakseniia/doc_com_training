@@ -6,3 +6,6 @@ DB_PASSWORD = "docker"
 DB_HOST = "postgresdb"
 DB_PORT = 5432
 DB_NAME = "booksdb"
+
+REDIS_HOST = "redis"
+REDIS_PORT = 6379

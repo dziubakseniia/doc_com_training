@@ -1,7 +1,8 @@
 import json
+
 from sqlalchemy import Table, Column, Integer, String, ForeignKey
-from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import relationship
 
 Base = declarative_base()
 
@@ -9,6 +10,7 @@ association_table = Table('association', Base.metadata,
     Column('book_id', Integer, ForeignKey('books.id')),
     Column('author_id', Integer, ForeignKey('authors.id'))
 )
+
 
 class Author(Base):
     __tablename__ = 'authors'
@@ -28,6 +30,7 @@ class Author(Base):
     def toJSON(self):
         return json.dumps(self, default=lambda o: o.__dict__, 
             sort_keys=True, indent=4)
+
 
 class Book(Base):
     __tablename__ = 'books'

@@ -1,7 +1,8 @@
-from sanic.views import HTTPMethodView
 from sanic.response import text
+from sanic.views import HTTPMethodView
 
 from src.controllers.book_controller import BookController
+
 
 class BookView(HTTPMethodView):
     def __init__(self):

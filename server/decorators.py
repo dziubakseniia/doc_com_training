@@ -1,5 +1,6 @@
 from functools import wraps
 
+
 def uppercase(func):
     @wraps(func)
     async def do_uppercase(*args, **kwargs):

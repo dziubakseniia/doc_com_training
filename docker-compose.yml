@@ -5,26 +5,36 @@ services:
     build: server/
     ports:
       - 8004:8004
-    networks: 
-      - server
+    # networks: 
+    #   - server
     container_name: "server"
     depends_on: 
       - postgresdb
+      - redis
     links: 
       - postgresdb
+      - redis
 
   client:
     build: client/
     ports:
       - 8005:8005
-    networks: 
-      - server
-      - client
+    # networks: 
+    #   - server
+    #   - client
     container_name: "client"
     depends_on: 
       - server
     links: 
       - server
+  
+  redis:
+    image: redis:6.0-rc
+    container_name: "redis"
+    restart: always
+    ports: 
+      - 6379:6379
+    command: ["redis-server"]
     
   # postgresdb:
   #   build: postgresdb/
@@ -39,12 +49,12 @@ services:
       POSTGRES_PASSWORD: docker
     container_name: "postgresdb"
 
-  mongo:
-    image: mongo:4.2.2
-    restart: always
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: example  
+  # mongo:
+  #   image: mongo:4.2.2
+  #   restart: always
+  #   environment:
+  #     MONGO_INITDB_ROOT_USERNAME: root
+  #     MONGO_INITDB_ROOT_PASSWORD: example  
 
 networks: 
     server:
